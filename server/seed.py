@@ -8,10 +8,17 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db
+from models import db, Hotel
 
 if __name__ == '__main__':
-    fake = Faker()
+    # fake = Faker()
     with app.app_context():
-        print("Starting seed...")
-        # Seed code goes here!
+        Hotel.query.delete()
+
+        hotel1 = Hotel(name="Marriott Resort")
+        hotel2 = Hotel(name="Disney World Resort")
+        hotel3 = Hotel(name="Bahamas Resort")
+
+        db.session.add_all([hotel1, hotel2, hotel3])
+        db.session.commit()
+        print("Seeding complete!")
